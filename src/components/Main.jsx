@@ -19,16 +19,21 @@ const MemoryGame = () => {
           className={classNames}
           onClick={() => handleCardClick(index)}
         >
-          {isFlipped || isMatched ? symbol : "?"}
+          <div className="card-inner">
+            <div className="card-front">?</div>
+            <div className="card-back">
+              {isFlipped || isMatched ? symbol : ""}
+            </div>
+          </div>
         </div>
       );
     });
   };
 
   return (
-    <div className="main memory-game">
+    <main className="memory-game">
       <div className="game-board">{renderGameBoard()}</div>
-    </div>
+    </main>
   );
 };
 

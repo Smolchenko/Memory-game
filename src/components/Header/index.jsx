@@ -3,11 +3,11 @@ import GameStatus from "./GameStatus";
 
 const Header = () => {
   return (
-    <div className="header">
+    <header>
       <div>Players</div>
       <GameStatus />
       <GameOptions />
-    </div>
+    </header>
   );
 };
 
