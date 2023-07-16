@@ -13,6 +13,10 @@ const useMemoryGameLogic = () => {
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
 
+  const progressLevel = useMemo(() => {
+    return cards.length > 0 ? (matchedCards.length / cards.length) * 100 : 0;
+  }, [matchedCards.length, cards.length]);
+
   const generateCards = useCallback(() => {
     const symbols = [
       "🐶",
@@ -74,8 +78,22 @@ const useMemoryGameLogic = () => {
   }, [generateCards]);
 
   const memoizedValues = useMemo(
-    () => ({ cards, flippedCards, matchedCards, handleCardClick, restartGame }),
-    [cards, flippedCards, matchedCards, handleCardClick, restartGame]
+    () => ({
+      cards,
+      flippedCards,
+      matchedCards,
+      handleCardClick,
+      restartGame,
+      progressLevel,
+    }),
+    [
+      cards,
+      flippedCards,
+      matchedCards,
+      handleCardClick,
+      restartGame,
+      progressLevel,
+    ]
   );
 
   return memoizedValues;

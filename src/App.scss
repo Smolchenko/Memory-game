@@ -11,10 +11,11 @@ body {
 }
 
 .header {
-  background-color: #e1fbf4;
-  padding: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #e1fbf4;
 }
 
 .main {
