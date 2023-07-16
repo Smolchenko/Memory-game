@@ -8,7 +8,6 @@ const GameOptions = () => {
       <button className="restart-button" onClick={restartGame}>
         Restart
       </button>
-      <span> [ Loading bar ] </span>
     </div>
   );
 };
