@@ -9,7 +9,12 @@ const Footer = () => {
           <span>Memory Game - Portfolio Project</span>
           <span>
             {"Copyright © "}
-            <a href="https://github.com/Smolchenko" target="_blank">
+            <a
+              href="https://github.com/Smolchenko"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Owner Github"
+            >
               Irene Smolchenko
             </a>{" "}
             {new Date().getFullYear()}

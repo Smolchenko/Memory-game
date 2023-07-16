@@ -1,8 +1,10 @@
+import GameOptions from "./GameOptions";
+
 const Header = () => {
   return (
     <div className="header">
       <div>Players</div>
-      <div>Game options</div>
+      <GameOptions />
     </div>
   );
 };
