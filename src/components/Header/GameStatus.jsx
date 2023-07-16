@@ -10,7 +10,6 @@ const GameOptions = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    console.log("progressLevel", progressLevel);
     const timer = setTimeout(() => setProgress(progressLevel), 200);
     return () => clearTimeout(timer);
   }, [progressLevel]);
