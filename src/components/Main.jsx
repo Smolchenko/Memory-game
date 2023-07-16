@@ -1,8 +1,8 @@
-import useMemoryGameLogic from "../hooks/useMemoryGameLogic";
+import { useMemoryGame } from "../context/MemoryGameContext";
 
 const MemoryGame = () => {
-  const { cards, flippedCards, matchedCards, handleCardClick, restartGame } =
-    useMemoryGameLogic();
+  const { cards, flippedCards, matchedCards, handleCardClick } =
+    useMemoryGame();
 
   const renderGameBoard = () => {
     return cards.map((symbol, index) => {
@@ -28,9 +28,6 @@ const MemoryGame = () => {
   return (
     <div className="main memory-game">
       <div className="game-board">{renderGameBoard()}</div>
-      <button className="restart-button" onClick={restartGame}>
-        Restart
-      </button>
     </div>
   );
 };
