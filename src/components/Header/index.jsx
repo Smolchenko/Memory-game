@@ -1,10 +1,11 @@
 import GameOptions from "./GameOptions";
 import GameStatus from "./GameStatus";
+import Player from "./Player";
 
 const Header = () => {
   return (
     <header>
-      <div style={{ width: "200px" }}>Players</div>
+      <Player />
       <GameStatus />
       <GameOptions />
     </header>
