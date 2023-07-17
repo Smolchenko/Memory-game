@@ -30,7 +30,7 @@ const GameOptions = () => {
     cards.length === matchedCards.length || matchedCards.length > 0;
 
   return (
-    <div style={{ width: "200px" }}>
+    <div className="gameOptions">
       <Select.Root
         value={gameLevel}
         onValueChange={setGameLevel}
