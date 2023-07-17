@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 50px;
+  font-size: 18px;
 }
 
 .ProgressBarContainer {
@@ -31,6 +32,10 @@
   &.completed {
     background-color: #00c897;
   }
+}
+
+.ImageContainer {
+  width: 220px;
 }
 
 @keyframes colorAnimation {
@@ -74,8 +79,8 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  padding: 4px 20px;
-  font-size: 12px;
+  padding: 8px 20px;
+  font-size: 14px;
   line-height: 1;
   height: 20px;
   gap: 5px;
