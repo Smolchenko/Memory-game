@@ -8,8 +8,16 @@ const shuffleArray = (array) => {
   return array;
 };
 
+export const levelRanks = [
+  { cards: 4, levelName: "Beginner" },
+  { cards: 10, levelName: "Trainee" },
+  { cards: 14, levelName: "Hotshot" },
+  { cards: 20, levelName: "Expert" },
+];
+
 const useMemoryGameLogic = () => {
   const [cards, setCards] = useState([]);
+  const [gameLevel, setGameLevel] = useState(levelRanks[0].cards); //4
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
 
@@ -30,9 +38,15 @@ const useMemoryGameLogic = () => {
       "🦁",
       "🐯",
     ];
-    const cardPairs = symbols.concat(symbols);
+
+    const filteredSymbols = shuffleArray(symbols).slice(0, gameLevel / 2);
+    const cardPairs = filteredSymbols.concat(filteredSymbols);
     return shuffleArray(cardPairs);
-  }, []);
+  }, [gameLevel]);
+
+  useEffect(() => {
+    generateCards();
+  }, [gameLevel]);
 
   const handleCardClick = useCallback(
     (index) => {
@@ -85,6 +99,8 @@ const useMemoryGameLogic = () => {
       handleCardClick,
       restartGame,
       progressLevel,
+      gameLevel,
+      setGameLevel,
     }),
     [
       cards,
@@ -93,6 +109,8 @@ const useMemoryGameLogic = () => {
       handleCardClick,
       restartGame,
       progressLevel,
+      gameLevel,
+      setGameLevel,
     ]
   );
 

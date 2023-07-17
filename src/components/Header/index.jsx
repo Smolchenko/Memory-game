@@ -4,7 +4,7 @@ import GameStatus from "./GameStatus";
 const Header = () => {
   return (
     <header>
-      <div>Players</div>
+      <div style={{ width: "200px" }}>Players</div>
       <GameStatus />
       <GameOptions />
     </header>
