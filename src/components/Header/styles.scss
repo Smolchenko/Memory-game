@@ -1,3 +1,15 @@
+.GameOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+.ProgressBarContainer {
+  width: 100%;
+}
+
 .ProgressRoot {
   position: relative;
   overflow: hidden;
@@ -19,6 +31,35 @@
   &.completed {
     background-color: #00c897;
   }
+}
+
+@keyframes colorAnimation {
+  0% {
+    color: #000;
+  }
+  100% {
+    color: #019d76;
+  }
+}
+
+@keyframes moveAnimation {
+  0% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.SpanAnimation {
+  animation: moveAnimation 0.5s linear, colorAnimation 0.5s linear forwards;
+  padding-bottom: 5px;
+}
+
+.ProgressBarAnimation {
+  animation: moveAnimation 0.5s linear;
 }
 
 button {

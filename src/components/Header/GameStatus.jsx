@@ -16,6 +16,7 @@ const GameOptions = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setProgress(progressLevel);
+      setIsAnimationComplete(false);
     }, 100);
     return () => clearTimeout(timer);
   }, [progressLevel]);
@@ -28,13 +29,22 @@ const GameOptions = () => {
   }, [progress]);
 
   return (
-    <div>
-      <Progress.Root className="ProgressRoot" value={progress}>
-        <Progress.Indicator
-          className={classNames}
-          style={{ transform: `translateX(-${100 - progress}%)` }}
-        />
-      </Progress.Root>
+    <div className="GameOptions">
+      <span className={isAnimationComplete ? "SpanAnimation" : ""}>
+        {isAnimationComplete ? "Game over!" : ""}
+      </span>
+      <div
+        className={`ProgressBarContainer ${
+          isAnimationComplete ? "ProgressBarAnimation" : ""
+        }`}
+      >
+        <Progress.Root className="ProgressRoot" value={progress}>
+          <Progress.Indicator
+            className={classNames}
+            style={{ transform: `translateX(-${100 - progress}%)` }}
+          />
+        </Progress.Root>
+      </div>
     </div>
   );
 };

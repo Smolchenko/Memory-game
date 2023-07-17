@@ -26,7 +26,8 @@ const GameOptions = () => {
   const { restartGame, gameLevel, setGameLevel, cards, matchedCards } =
     useMemoryGame();
 
-  const isSelectDisabled = cards.length === matchedCards.length;
+  const isSelectDisabled =
+    cards.length === matchedCards.length || matchedCards.length > 0;
 
   return (
     <div style={{ width: "200px" }}>
@@ -39,9 +40,11 @@ const GameOptions = () => {
           <Select.Value aria-label={gameLevel}>
             {levelRanks[gameLevel]}
           </Select.Value>
-          <Select.Icon className="SelectIcon">
-            <ChevronDownIcon />
-          </Select.Icon>
+          {!isSelectDisabled && (
+            <Select.Icon className="SelectIcon">
+              <ChevronDownIcon />
+            </Select.Icon>
+          )}
         </Select.Trigger>
         <Select.Portal>
           <Select.Content className="SelectContent">

@@ -93,11 +93,22 @@ footer {
   align-items: center;
   padding: 0 20px;
 
+  // .game-board {
+  //   display: grid;
+  //   grid-template-columns: repeat(5, 1fr);
+  //   grid-gap: 10px;
+  //   margin: auto;
+
+  //   // TBD media
+  // }
+
   .game-board {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 10px;
+    display: flex;
     margin: auto;
+    flex-wrap: wrap;
+    max-width: 60vw;
+    min-width: 50rem;
+    justify-content: center;
 
     // TBD media
   }
@@ -113,6 +124,7 @@ footer {
   width: 100px;
   border-radius: 50%;
   position: relative;
+  margin: 10px;
 
   &:hover {
     .card-inner {
@@ -151,6 +163,7 @@ footer {
 
     .card-back {
       transform: rotateY(180deg);
+      font-size: 40px;
     }
   }
 
