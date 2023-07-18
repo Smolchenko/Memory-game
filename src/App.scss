@@ -27,9 +27,14 @@ header {
     border-radius: 4px;
     font-size: 14px;
     margin-left: 5px;
+    transition: transform 0.2s;
 
     &:hover {
       background-color: #ffd04f;
+    }
+    &:active,
+    &.clicked {
+      transform: scale(0.95);
     }
   }
 
@@ -175,6 +180,7 @@ footer {
       .card-back {
         transform: none;
         border: 1px solid #f5c542;
+        box-sizing: border-box;
       }
     }
   }
