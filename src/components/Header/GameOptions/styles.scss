@@ -1,0 +1,84 @@
+@import "../../../variables";
+@import "../../../mixins";
+
+button {
+  all: unset;
+}
+
+.SelectTrigger {
+  @include horizontal-centered;
+  cursor: pointer;
+  width: 60px;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 14px;
+  line-height: 1;
+  height: 20px;
+  gap: 5px;
+  background-color: $bg_select_btn_hover;
+  box-shadow: 0 2px 10px $shadow;
+
+  &:hover {
+    background-color: $bg_select_btn_hover;
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+    background-color: $primary_bg;
+  }
+}
+
+.SelectContent {
+  overflow: hidden;
+  background-color: $primary_bg;
+  border: 1px solid $secondary_bg;
+  border-radius: 6px;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+
+  .SelectScrollButton {
+    @include horizontal-centered;
+    background-color: $neutral;
+    height: 25px;
+    cursor: default;
+  }
+
+  .SelectViewport {
+    padding: 5px 0;
+
+    .SelectLabel {
+      padding: 0 25px;
+      font-size: 12px;
+      line-height: 25px;
+      font-weight: 600;
+    }
+
+    .SelectItem {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-radius: 3px;
+      padding: 0 35px 0 25px;
+      line-height: 1;
+      height: 25px;
+      font-size: 12px;
+
+      .SelectItemIndicator {
+        @include horizontal-centered;
+        position: absolute;
+        left: 0;
+        width: 25px;
+      }
+
+      &:hover {
+        background-color: $bg_select_highlight;
+      }
+
+      &[data-highlighted] {
+        outline: none;
+      }
+    }
+  }
+}
