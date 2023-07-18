@@ -23,24 +23,20 @@ const SelectItem = React.forwardRef(
 );
 
 const GameOptions = () => {
-  const { restartGame, gameLevel, setGameLevel, cards, matchedCards } =
-    useMemoryGame();
-
-  const isSelectDisabled =
-    cards.length === matchedCards.length || matchedCards.length > 0;
+  const { restartGame, gameLevel, setGameLevel, gameStarted } = useMemoryGame();
 
   return (
     <div className="gameOptions">
       <Select.Root
         value={gameLevel}
         onValueChange={setGameLevel}
-        disabled={isSelectDisabled}
+        disabled={gameStarted}
       >
-        <Select.Trigger className="SelectTrigger" disabled={isSelectDisabled}>
+        <Select.Trigger className="SelectTrigger" disabled={gameStarted}>
           <Select.Value aria-label={gameLevel}>
             {levelRanks[gameLevel]}
           </Select.Value>
-          {!isSelectDisabled && (
+          {!gameStarted && (
             <Select.Icon className="SelectIcon">
               <ChevronDownIcon />
             </Select.Icon>
