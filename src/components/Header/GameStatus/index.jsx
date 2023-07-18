@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import * as Progress from "@radix-ui/react-progress";
 
-import { useMemoryGame } from "../../context/MemoryGameContext";
-
+import { useMemoryGame } from "../../../context/MemoryGameContext";
 import "./styles.scss";
 
-const GameOptions = () => {
+const GameStatus = () => {
   const { progressLevel } = useMemoryGame();
   const [progress, setProgress] = useState(0);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
@@ -29,7 +28,7 @@ const GameOptions = () => {
   }, [progress]);
 
   return (
-    <div className="GameOptions">
+    <div className="gameStatus">
       <span className={isAnimationComplete ? "SpanAnimation" : ""}>
         {isAnimationComplete ? "Game over, well done! :)" : ""}
       </span>
@@ -49,4 +48,4 @@ const GameOptions = () => {
   );
 };
 
-export default GameOptions;
+export default GameStatus;

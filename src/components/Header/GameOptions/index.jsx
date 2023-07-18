@@ -6,8 +6,10 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-import { levelRanks } from "../../hooks/useMemoryGameLogic";
-import { useMemoryGame } from "../../context/MemoryGameContext";
+import { levelRanks } from "../../../hooks/useMemoryGameLogic";
+import { useMemoryGame } from "../../../context/MemoryGameContext";
+
+import "./styles.scss";
 
 const SelectItem = React.forwardRef(
   ({ children, className, ...props }, forwardedRef) => {
