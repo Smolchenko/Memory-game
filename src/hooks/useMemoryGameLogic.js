@@ -15,11 +15,31 @@ export const levelRanks = [
   { cards: 20, levelName: "Expert" },
 ];
 
+const getDataFromLocalStorage = () => {
+  try {
+    const data = JSON.parse(localStorage.getItem("playData"));
+    return data?.attempts || 0;
+  } catch (error) {
+    console.error("Error parsing local storage data:", error);
+    return 0;
+  }
+};
+
 const useMemoryGameLogic = () => {
   const [cards, setCards] = useState([]);
-  const [gameLevel, setGameLevel] = useState(levelRanks[0].cards); //4
+  const [gameLevel, setGameLevel] = useState(levelRanks[0].cards);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [restartCount, setRestartCount] = useState(() =>
+    getDataFromLocalStorage()
+  );
+
+  useEffect(() => {
+    if (matchedCards.length) {
+      setGameStarted(true);
+    }
+  }, [matchedCards.length]);
 
   const progressLevel = useMemo(() => {
     return cards.length > 0 ? (matchedCards.length / cards.length) * 100 : 0;
@@ -85,7 +105,14 @@ const useMemoryGameLogic = () => {
     setCards(generateCards());
     setFlippedCards([]);
     setMatchedCards([]);
+    setGameStarted(false);
   }, [generateCards]);
+
+  useEffect(() => {
+    if (gameStarted) {
+      setRestartCount((prevCount) => prevCount + 1);
+    }
+  }, [gameStarted]);
 
   useEffect(() => {
     setCards(generateCards());
@@ -101,6 +128,8 @@ const useMemoryGameLogic = () => {
       progressLevel,
       gameLevel,
       setGameLevel,
+      restartCount,
+      gameStarted,
     }),
     [
       cards,
@@ -111,6 +140,8 @@ const useMemoryGameLogic = () => {
       progressLevel,
       gameLevel,
       setGameLevel,
+      restartCount,
+      gameStarted,
     ]
   );
 
