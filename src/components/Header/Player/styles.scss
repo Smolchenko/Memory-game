@@ -4,6 +4,24 @@ a {
   all: unset;
 }
 
+.ImageContainer {
+  width: 220px;
+
+  .Image {
+    display: block;
+    border-radius: 100%;
+
+    &.normal {
+      width: 45px;
+      height: 45px;
+    }
+    &.large {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
 .HoverCardContent {
   border-radius: 6px;
   padding: 20px;
@@ -33,39 +51,26 @@ a {
     position: relative;
     left: 50px;
   }
-}
 
-.Image {
-  display: block;
-  border-radius: 100%;
+  .Text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
 
-  &.normal {
-    width: 45px;
-    height: 45px;
-  }
-  &.large {
-    width: 100px;
-    height: 100px;
-  }
-}
+    &.bold {
+      font-weight: 600;
+    }
 
-.Text {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
+    a {
+      cursor: pointer;
 
-  &.bold {
-    font-weight: 600;
-  }
-
-  a {
-    cursor: pointer;
-
-    &:hover {
-      color: $copyright;
+      &:hover {
+        color: $copyright;
+      }
     }
   }
 }
+
 @keyframes slideUpAndFade {
   0% {
     opacity: 0;
