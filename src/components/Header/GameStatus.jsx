@@ -31,7 +31,7 @@ const GameOptions = () => {
   return (
     <div className="GameOptions">
       <span className={isAnimationComplete ? "SpanAnimation" : ""}>
-        {isAnimationComplete ? "Game over!" : ""}
+        {isAnimationComplete ? "Game over, well done! :)" : ""}
       </span>
       <div
         className={`ProgressBarContainer ${
