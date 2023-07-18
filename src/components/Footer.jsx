@@ -1,5 +1,7 @@
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
+const currentYear = new Date().getFullYear();
+
 const Footer = () => {
   return (
     <footer>
@@ -12,12 +14,11 @@ const Footer = () => {
             <a
               href="https://github.com/Smolchenko"
               target="_blank"
-              rel="noopener noreferrer"
               aria-label="Owner Github"
             >
               Irene Smolchenko
             </a>{" "}
-            {new Date().getFullYear()}
+            {currentYear}
             {"."}
           </span>
         </p>
