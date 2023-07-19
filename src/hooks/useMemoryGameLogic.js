@@ -1,29 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
-
-export const levelRanks = [
-  { cards: 4, levelName: "Beginner" },
-  { cards: 10, levelName: "Trainee" },
-  { cards: 14, levelName: "Hotshot" },
-  { cards: 20, levelName: "Expert" },
-];
-
-const getDataFromLocalStorage = () => {
-  try {
-    const data = JSON.parse(localStorage.getItem("playData"));
-    return data?.attempts || 0;
-  } catch (error) {
-    console.error("Error parsing local storage data:", error);
-    return 0;
-  }
-};
+import { levelRanks } from "../constants";
+import {
+  generateCards,
+  checkMatch,
+  handleCardClick as handleCardClickUtil,
+} from "../utils/gameUtils";
+import { getAttemptsFromLocalStorage } from "../utils/localStorage";
 
 const useMemoryGameLogic = () => {
   const [cards, setCards] = useState([]);
@@ -32,91 +15,51 @@ const useMemoryGameLogic = () => {
   const [matchedCards, setMatchedCards] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
   const [restartCount, setRestartCount] = useState(() =>
-    getDataFromLocalStorage()
+    getAttemptsFromLocalStorage()
   );
-
-  useEffect(() => {
-    if (matchedCards.length) {
-      setGameStarted(true);
-    }
-  }, [matchedCards.length]);
 
   const progressLevel = useMemo(() => {
     return cards.length > 0 ? (matchedCards.length / cards.length) * 100 : 0;
   }, [matchedCards.length, cards.length]);
 
-  const generateCards = useCallback(() => {
-    const symbols = [
-      "🐶",
-      "🐱",
-      "🐭",
-      "🐹",
-      "🐰",
-      "🐻",
-      "🐼",
-      "🐨",
-      "🦁",
-      "🐯",
-    ];
-
-    const filteredSymbols = shuffleArray(symbols).slice(0, gameLevel / 2);
-    const cardPairs = filteredSymbols.concat(filteredSymbols);
-    return shuffleArray(cardPairs);
-  }, [gameLevel]);
-
-  useEffect(() => {
-    generateCards();
-  }, [gameLevel]);
-
-  const handleCardClick = useCallback(
-    (index) => {
-      if (
-        flippedCards.length < 2 &&
-        !flippedCards.includes(index) &&
-        !matchedCards.includes(index)
-      ) {
-        setFlippedCards((prevFlippedCards) => [...prevFlippedCards, index]);
-      }
-    },
-    [flippedCards, matchedCards]
-  );
-
-  const checkMatch = useCallback(() => {
-    if (flippedCards.length === 2) {
-      const [firstCard, secondCard] = flippedCards;
-      const newMatchedCards = [...matchedCards];
-
-      if (cards[firstCard] === cards[secondCard]) {
-        newMatchedCards.push(firstCard, secondCard);
-      }
-
-      setTimeout(() => {
-        setMatchedCards(newMatchedCards);
-        setFlippedCards([]);
-      }, 1000);
-    }
-  }, [flippedCards, matchedCards, cards]);
-
-  useEffect(() => {
-    checkMatch();
-  }, [checkMatch]);
-
   const restartGame = useCallback(() => {
-    setCards(generateCards());
+    setCards(generateCards(gameLevel));
     setFlippedCards([]);
     setMatchedCards([]);
     setGameStarted(false);
-  }, [generateCards]);
+  }, [gameLevel]);
+
+  const handleCardClick = useCallback(
+    (index) =>
+      handleCardClickUtil(index, flippedCards, matchedCards, setFlippedCards),
+    [flippedCards, matchedCards]
+  );
 
   useEffect(() => {
-    if (gameStarted) {
-      setRestartCount((prevCount) => prevCount + 1);
-    }
+    if (matchedCards.length) setGameStarted(true);
+  }, [matchedCards.length]);
+
+  useEffect(() => {
+    generateCards(gameLevel);
+  }, [gameLevel]);
+
+  useEffect(() => {
+    checkMatch(
+      flippedCards,
+      matchedCards,
+      cards,
+      setFlippedCards,
+      setMatchedCards
+    );
+  }, [flippedCards, matchedCards, cards]);
+
+  useEffect(() => {
+    if (gameStarted) setRestartCount((prevCount) => prevCount + 1);
   }, [gameStarted]);
 
   useEffect(() => {
-    setCards(generateCards());
-  }, [generateCards]);
+    setCards(generateCards(gameLevel));
+  }, [gameLevel]);
 
   const memoizedValues = useMemo(
     () => ({
