@@ -6,7 +6,7 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-import { levelRanks } from "../../../hooks/useMemoryGameLogic";
+import { levelRanks } from "../../../constants";
 import { useMemoryGame } from "../../../context/MemoryGameContext";
 
 import "./styles.scss";
