@@ -10,7 +10,7 @@ import { getAttemptsFromLocalStorage } from "../utils/localStorage";
 
 const useMemoryGameLogic = () => {
   const [cards, setCards] = useState([]);
-  const [gameLevel, setGameLevel] = useState(levelRanks[0].cards);
+  const [gameLevel, setGameLevel] = useState(levelRanks[1].cards);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
