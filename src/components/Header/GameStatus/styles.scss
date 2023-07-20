@@ -35,6 +35,10 @@
           background-color: $bg_indicator_complete;
         }
       }
+
+      @media (max-width: 414px) {
+        max-width: 90vw;
+      }
     }
 
     &.ProgressBarAnimation {

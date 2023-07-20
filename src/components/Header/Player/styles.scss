@@ -6,6 +6,7 @@ a {
 
 .ImageContainer {
   width: 220px;
+  display: flex;
 
   .Image {
     display: block;
@@ -15,10 +16,19 @@ a {
       width: 45px;
       height: 45px;
     }
+
     &.large {
       width: 100px;
       height: 100px;
     }
+  }
+
+  > div {
+    margin-left: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    width: auto;
   }
 }
 
@@ -51,22 +61,30 @@ a {
     position: relative;
     left: 50px;
   }
+}
 
-  .Text {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.5;
+.flex {
+  display: flex;
 
-    &.bold {
-      font-weight: 600;
-    }
+  &.column {
+    flex-direction: column;
+  }
+}
 
-    a {
-      cursor: pointer;
+.Text {
+  margin: 5px 5px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
 
-      &:hover {
-        color: $copyright;
-      }
+  &.bold {
+    font-weight: 600;
+  }
+
+  a {
+    cursor: pointer;
+
+    &:hover {
+      color: $copyright;
     }
   }
 }

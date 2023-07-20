@@ -51,7 +51,11 @@ header {
   .gameOptions {
     width: 220px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
   }
 }
 
@@ -71,8 +75,6 @@ main {
       margin: auto;
       max-width: 60vw;
       min-width: 50rem;
-
-      // TBD media
 
       .card {
         @include horizontal-centered;
@@ -140,6 +142,35 @@ main {
           }
         }
       }
+
+      @media (max-width: 1024px) {
+        max-width: 100vw;
+        min-width: auto;
+      }
+
+      @media (min-width: 820px) and (max-width: 1024px) {
+        max-width: 80vw;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .game-board {
+        .card {
+          margin: 10px 5px;
+        }
+      }
+    }
+
+    @media (max-width: 915px) {
+      padding: 50px 20px 50px;
+    }
+
+    @media (max-width: 1024px) and (orientation: landscape) {
+      padding: 50px 20px 50px;
+    }
+
+    @media (max-width: 359px) {
+      padding: 20px 0;
     }
   }
 }
@@ -182,6 +213,48 @@ footer {
             }
           }
         }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    min-height: 200px;
+    background-size: 200% 100%;
+
+    .footer-content {
+      max-width: 100%;
+      margin: auto auto 2vh 15%;
+
+      p {
+        span {
+          font-size: 16px;
+
+          &:nth-child(2) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 912px) {
+    .footer-content {
+      margin: auto auto 1vh 15%;
+    }
+  }
+
+  @media (max-width: 280px) {
+    .footer-content {
+      margin: auto 5% 0 20%;
+    }
+  }
+
+  @media (orientation: landscape) {
+    @media (max-width: 1024px) {
+      background-size: 100% 100%;
+
+      .footer-content {
+        margin: auto auto 5vh 15%;
       }
     }
   }
