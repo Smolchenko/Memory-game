@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as HoverCard from "@radix-ui/react-hover-card";
 
 import AvatarImage from "./Avatar";
@@ -17,47 +17,51 @@ const HoverPlayerCard = () => {
   const { progressLevel, restartCount, gameStarted } = useMemoryGame();
   const [shouldNextResetCount, setShouldNextResetCount] = useState(true);
   const [loses, setLoses] = useState(0);
-  const [userPlayData, setUserPlayData] = useState(() =>
-    getLocalStorageData("playData")
-  );
+  const countRef = useRef(getLocalStorageData("playData"));
 
   useEffect(
-    () => setLocalStorageData("playData", userPlayData),
-    [userPlayData]
+    () => setLocalStorageData("playData", countRef.current),
+    [countRef]
   );
 
   useEffect(() => {
     if (progressLevel === 100) {
+      const currentData = countRef.current;
+
       const updatedPlayData = {
-        ...userPlayData,
-        wins: userPlayData.wins + 1,
+        ...currentData,
+        wins: currentData.wins + 1,
       };
 
       setLocalStorageData("playData", updatedPlayData);
-      setUserPlayData(updatedPlayData);
+      countRef.current = updatedPlayData;
       setShouldNextResetCount(false);
     }
   }, [progressLevel]);
 
   useEffect(() => {
     if (shouldNextResetCount) {
+      const currentData = countRef.current;
       const updatedPlayData = {
-        ...userPlayData,
+        ...currentData,
         attempts: restartCount,
       };
 
       setLocalStorageData("playData", updatedPlayData);
-      setUserPlayData(updatedPlayData);
+      countRef.current = updatedPlayData;
     }
-  }, [restartCount, userPlayData.attempts, shouldNextResetCount]);
+  }, [restartCount, shouldNextResetCount]);
 
   useEffect(() => {
     if (gameStarted) setShouldNextResetCount(true);
   }, [gameStarted]);
 
   useEffect(() => {
-    if (!gameStarted) setLoses(restartCount - userPlayData.wins);
-  }, [restartCount, gameStarted, userPlayData.wins]);
+    if (!gameStarted) {
+      const currentData = countRef.current;
+      setLoses(restartCount - currentData.wins);
+    }
+  }, [restartCount, gameStarted, countRef.wins]);
 
   return (
     <HoverCard.Root>
@@ -65,7 +69,7 @@ const HoverPlayerCard = () => {
         <div className="ImageContainer">
           <AvatarImage size="large" />
           {isMobile && (
-            <CardContent userPlayData={userPlayData} loses={loses} />
+            <CardContent userPlayData={countRef.current} loses={loses} />
           )}
         </div>
       </HoverCard.Trigger>
@@ -75,7 +79,7 @@ const HoverPlayerCard = () => {
             <div className="ImageContainer">
               <AvatarImage size="normal" />
             </div>
-            <CardContent userPlayData={userPlayData} loses={loses} />
+            <CardContent userPlayData={countRef.current} loses={loses} />
           </div>
           <HoverCard.Arrow className="HoverCardArrow" />
         </HoverCard.Content>
